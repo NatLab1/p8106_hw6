@@ -1,0 +1,19 @@
+---
+title: "p8106_hw6"
+author: "Nathalie Fadel"
+date: "4/29/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Problem 1
+
+###Part A
+```{r}
+library(ISLR)
+
+data("USArrests")
+```
