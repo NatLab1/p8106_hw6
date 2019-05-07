@@ -9,6 +9,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+##Hierarchical Clustering
+
 ###Part A
 ```{r}
 library(ISLR)
@@ -27,7 +29,7 @@ fviz_dend(usa.hclust, k = 4,
           palette = "jco", 
           color_labels_by_k = TRUE,
           rect = TRUE, rect_fill = TRUE, rect_border = "jco",
-          labels_track_height = 2.5)
+          labels_track_height = 20)
 ```
 
 ###Part B
@@ -41,9 +43,38 @@ fviz_dend(usa.hclust, k = 3,
           rect = TRUE, rect_fill = TRUE, rect_border = "jco",
           labels_track_height = 2.5)
 
+USArrests[ind4.complete == 3,]
+
 ```
 
 ###Part C
+```{r}
+scaling <- function(x)
+  (x - mean(x, na.rm = TRUE)) / sd(x, na.rm = TRUE)
+
+clust.scaled <- USArrests %>%
+    map_df(scaling) %>%
+    dist(method = 'euclidean') %>%
+    hclust(method = 'complete')
+
+clust.scaled$labels <- row.names(USArrests)[clust.scaled$order]
+
+partc_dend <- fviz_dend(clust.scaled, k = 4,        
+          cex = 0.3, 
+          palette = "jco", 
+          color_labels_by_k = TRUE,
+          rect = TRUE, rect_fill = TRUE, rect_border = "jco",
+          labels_track_height = 2.5)
+partc_dend
+
+```
+
+###Part D
+
+We should be scaling the standard deviations prior to computing the Euclidean distance. Otherwise, variables with larger values will dominate over smaller ones. 
+
+##PCA
+
 ```{r}
 
 
