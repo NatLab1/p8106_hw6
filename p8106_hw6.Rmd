@@ -9,11 +9,42 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-##Problem 1
-
 ###Part A
 ```{r}
 library(ISLR)
+library(tidyverse)
+library(factoextra)
 
 data("USArrests")
+summary(USArrests)
+state <- row.names(USArrests)
+
+usa.dist <- dist(USArrests)
+usa.hclust <- hclust(usa.dist, method = "complete")
+
+fviz_dend(usa.hclust, k = 4,        
+          cex = 0.3, 
+          palette = "jco", 
+          color_labels_by_k = TRUE,
+          rect = TRUE, rect_fill = TRUE, rect_border = "jco",
+          labels_track_height = 2.5)
+```
+
+###Part B
+```{r}
+ind4.complete <- cutree(usa.hclust, 3)
+
+fviz_dend(usa.hclust, k = 3,        
+          cex = 0.3, 
+          palette = "jco", 
+          color_labels_by_k = TRUE,
+          rect = TRUE, rect_fill = TRUE, rect_border = "jco",
+          labels_track_height = 2.5)
+
+```
+
+###Part C
+```{r}
+
+
 ```
